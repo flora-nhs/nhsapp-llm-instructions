@@ -57,7 +57,7 @@ export default router;
 {# Output an NHS number using the v7.1.0 filter #}
 <p class="nhsuk-body">
   NHS number: {{ data.nhsNumber | formatNhsNumber }}
-</p> {# Ensures correct spacing for readability/accessibility. citeturn1search5 #}
+</p> {# Ensures correct spacing for readability/accessibility. [4](https://github.com/nhsuk/nhsuk-prototype-kit/releases) #}
 
 
 ## 4) Reset / clear data link (footer)
@@ -70,7 +70,7 @@ export default router;
     </a>
   </li>
 </ul>
-{# Core kit adds Reset data (v6.0.0); App repo also includes clear data logic. citeturn1search5turn1search21 #}
+{# Core kit adds Reset data (v6.0.0); App repo also includes clear data logic. [4](https://github.com/nhsuk/nhsuk-prototype-kit/releases)[2](https://github.com/nhsuk/nhsapp-prototype) #}
 
 
 ## 5) Dev loop

@@ -9,13 +9,6 @@ These instructions supplement the NHS Prototype Kit guidance so Copilot reliably
 
 ---
 
-## Scope
-
-- **applyTo:** `.njk`, `.html`, `app/routes/*.js` – focus Copilot on Nunjucks templates and route files. (Keep generic docs out of scope to reduce noise.)  
-  Pair this file with the existing NHS design system instruction pack (see “Sources Copilot should learn from”). [3](https://github.com/edwardhorsford/NHS-LLM-documentation)
-
----
-
 ## Sources Copilot should learn from (in priority order)
 
 1. **This file** (NHS App specifics and guardrails).  
@@ -31,6 +24,7 @@ These instructions supplement the NHS Prototype Kit guidance so Copilot reliably
 ## Target stack and versions
 
 - Base your suggestions on **NHS Prototype kit v7.x** (uses **NHS Frontend v10**, removes jQuery, updates template inheritance). [4](https://github.com/nhsuk/nhsuk-prototype-kit/releases)  
+- The App prototype also includes **NHS App Frontend (nhsapp-frontend) v5.x** — the CSS/component library that adds App-specific components on top of NHS Frontend. This is what provides the App-specific components listed above. [9](https://github.com/nhsuk/nhsapp-frontend)  
 - Assume **Node 22** compatibility where relevant (noted in kit 6.2.0; remains valid in 7.x). [4](https://github.com/nhsuk/nhsuk-prototype-kit/releases)
 
 ---
@@ -38,6 +32,24 @@ These instructions supplement the NHS Prototype Kit guidance so Copilot reliably
 ## Use NHS App components and layouts **first**
 
 - When creating pages, **prefer NHS App–specific layouts/components**. If a component is not available in the App kit, fall back to standard NHS Frontend. The App prototype builds on the core kit **with added App frontend code** for App‑specific parts. [2](https://github.com/nhsuk/nhsapp-prototype)[1](https://design-system.nhsapp.service.nhs.uk/get-started/nhsapp-prototype/)
+
+### NHS App–specific components (use these before NHS Frontend equivalents)
+
+These components exist in the NHS App design system and are **not** in standard NHS Frontend. Always reach for these first when the use case fits: [8](https://design-system.nhsapp.service.nhs.uk/components/)
+
+| Component | Purpose |
+|---|---|
+| **Badge** | Notification indicator (unread count) on icons or cards. Use visually hidden text for screen readers. |
+| **Bottom navigation** | Home / Services / Your health / Messages nav — **app context only** (see note below). |
+| **Buttons** | App-specific button variants — check for differences from standard NHS Frontend buttons. |
+| **Card links** | Primary navigation pattern in the App. Prefer over `nhsuk-card` for linking to services or deeper content. |
+| **Header (web)** | App-specific web header — use instead of the standard NHS header when building the web version. |
+| **Tag** | Status or label indicator. |
+| **Timeline** | Chronological content (e.g. appointment history). |
+| **Top navigation** | Fixed header navigation bar. |
+| **Section heading** | Structured page sections with consistent visual treatment. |
+
+> **App vs. web context:** Bottom navigation is only present in the **NHS App mobile context**. It is **not** used in the web browser version of the NHS App — those same links appear in an NHS.UK header instead. Bottom navigation is also hidden when external content opens in a browser overlay within the App. When prototyping, be explicit about which context you are targeting.
 
 ---
 
@@ -59,6 +71,15 @@ This change was introduced to make future updates easier from v6 and remains the
 
 - Use built‑in filters before creating new ones.  
 - When outputting NHS numbers, use **`formatNhsNumber`** for correct spacing and readability (added in **v7.1.0**). [4](https://github.com/nhsuk/nhsuk-prototype-kit/releases)
+
+---
+
+## Extending the prototype: filters and locals
+
+The App prototype provides two dedicated extension points — **use these rather than inventing alternatives**:
+
+- **`app/filters.js`** — add custom Nunjucks filters here. Export a function that receives the Nunjucks `env` and attaches methods to a `filters` object. Do not add filters anywhere else.
+- **`app/locals.js`** — set variables that should be available across all templates (e.g. environment flags, shared display data). This is the correct place for prototype-wide configuration.
 
 ---
 
