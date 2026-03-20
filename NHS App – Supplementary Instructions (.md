@@ -8,6 +8,16 @@ These instructions supplement the NHS Prototype Kit guidance. They focus on what
 
 ---
 
+## Prototyping context
+
+This is a prototype codebase. Some pragmatism is fine:
+
+- Aim for outward realism; internal implementation can be simplified
+- No need for production-grade quality, backwards compatibility, or test coverage
+- Prefer server-side rendering over client-side JavaScript
+
+---
+
 ## Use NHS App components first
 
 When creating pages, **prefer NHS App-specific components**. If a component does not exist in the App kit, fall back to standard NHS Frontend.
@@ -27,6 +37,11 @@ These components exist in the [NHS App design system](https://design-system.nhsa
 | **Section heading** | Structured page sections with consistent visual treatment. |
 
 > **App vs. web context:** Bottom navigation is only present in the **NHS App mobile context**. It is **not** used in the web browser version — those links appear in an NHS.UK header instead. Bottom navigation is also hidden when external content opens in a browser overlay. Be explicit about which context you are prototyping for.
+
+### Macros vs HTML
+
+- For **NHS Frontend components** (fallback): prefer Nunjucks macros over raw HTML.
+- For **NHS App-specific components**: check the [component page](https://design-system.nhsapp.service.nhs.uk/components/) first. Use the Nunjucks example if one is provided; otherwise use the documented HTML. Do not invent macro calls — not all App components have macros.
 
 ---
 
@@ -60,3 +75,26 @@ Use the dedicated extension points — do not invent alternatives:
 Follow the POST/redirect pattern:
 
 - **POST** validates/updates `req.session.data`, then **redirects** (PRG pattern). Do not render directly from a POST handler.
+
+---
+
+## Coding standards
+
+**JavaScript**
+- ES6+ with arrow functions
+- No terminating semicolons
+- Allman style — opening braces on a new line for conditions and functions
+- 2-space indentation
+- Descriptive variable names in plain English (e.g. `index` not `i`)
+
+**Nunjucks**
+- Use `elseif` not `elif`
+- No trailing commas in macro calls
+
+**SCSS**
+- BEM classes with full class names — not nested expansions
+- Semicolons required
+
+**Content**
+- UK English spelling
+- Sentence case for all headings and user-facing text — first word and proper nouns only
