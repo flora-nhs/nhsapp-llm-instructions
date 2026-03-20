@@ -1,3 +1,7 @@
+---
+applyTo: "**/*.{njk,html},app/routes/*.js"
+---
+
 # NHS App – Supplementary Instructions (for GitHub Copilot)
 
 **Purpose**  
